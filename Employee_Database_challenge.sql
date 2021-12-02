@@ -28,3 +28,17 @@ GROUP BY title
 ORDER BY COUNT(title) DESC
 
 
+SELECT * FROM titles
+
+SELECT DISTINCT ON (e.emp_no) e.emp_no, e.first_name, e.last_name, e.birth_date, 
+de.from_date, de.to_date,
+t.title
+INTO mentorship_eligibility
+FROM employees AS e
+INNER JOIN dept_emp AS de
+ON e.emp_no = de.emp_no
+INNER JOIN titles AS t
+ON t.emp_no = e.emp_no
+WHERE (e.birth_date BETWEEN '01-01-1965' AND '12-31-1965')
+AND (de.to_date = '9999-01-01')
+ORDER BY emp_no
